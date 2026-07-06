@@ -1,0 +1,8 @@
+---
+#   ansible-playbook site.yml --tags wordpress
+
+- name: Build and start the wordpress container only
+  ansible.builtin.command:
+    cmd: docker compose -f docker-compose.yml up -d --build wordpress
+    chdir: "{{ project_dir }}/srcs"
+  changed_when: false

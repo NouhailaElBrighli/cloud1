@@ -1,0 +1,21 @@
+---
+- name: Deploy Inception stack automatically to the cloud
+  hosts: webservers
+  become: true
+
+  roles:
+    - role: docker
+      tags: [docker]
+    - role: common
+      tags: [common, mariadb, wordpress, nginx]
+    - role: mariadb
+      tags: [mariadb]
+    - role: wordpress
+      tags: [wordpress]
+    - role: nginx
+      tags: [nginx]
+
+  post_tasks:
+    - name: Show the URL where the site should now be reachable
+      ansible.builtin.debug:
+        msg: "Visit: https://{{ domain_name if domain_name else ansible_host }}"

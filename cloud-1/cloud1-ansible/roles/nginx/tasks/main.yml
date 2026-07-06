@@ -1,0 +1,7 @@
+---
+# ansible-playbook site.yml --tags nginx
+- name: Build and start the nginx container only
+  ansible.builtin.command:
+    cmd: docker compose -f docker-compose.yml up -d --build nginx
+    chdir: "{{ project_dir }}/srcs"
+  changed_when: false

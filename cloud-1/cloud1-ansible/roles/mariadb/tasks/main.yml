@@ -1,0 +1,7 @@
+---
+#   ansible-playbook site.yml --tags mariadb
+- name: Build and start the mariadb container only
+  ansible.builtin.command:
+    cmd: docker compose -f docker-compose.yml up -d --build mariadb
+    chdir: "{{ project_dir }}/srcs"
+  changed_when: false

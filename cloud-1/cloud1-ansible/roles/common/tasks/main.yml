@@ -1,0 +1,31 @@
+---
+# Shared prerequisites - NOT a service itself, just prep work every
+# service role below depends on (project files present, .env generated,
+# data folders existing). Keeping this separate (rather than duplicating
+# it inside each service role) avoids copying/templating the same files
+# three times over.
+
+- name: Create persistent data directories
+  ansible.builtin.file:
+    path: "{{ data_dir }}/{{ item }}"
+    state: directory
+  loop:
+    - mariadb
+    - wordpress
+
+- name: Copy Inception project to the remote server
+  ansible.builtin.copy:
+    src: "../Inception/"
+    dest: "{{ project_dir }}/"
+    mode: preserve
+
+- name: Template the .env file with dynamic values
+  ansible.builtin.template:
+    src: .env.j2
+    dest: "{{ project_dir }}/srcs/.env"
+    mode: "0600"
+
+- name: Ensure the shared docker network exists (created once, used by all services)
+  ansible.builtin.command:
+    cmd: docker network create wordpress
+  register: network_result
