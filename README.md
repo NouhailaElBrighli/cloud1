@@ -1,6 +1,6 @@
 # Cloud-1
 
-An Ansible playbook that automates the deployment of the [Inception](https://github.com/NouhailaElBrighli) Docker stack (NGINX, WordPress, MariaDB) onto a remote cloud server. This is the Cloud-1 project from the 42 network curriculum.
+An Ansible playbook that automates the deployment of the [Inception](https://github.com/NouhailaElBrighli/inception) Docker stack (NGINX, WordPress, MariaDB) onto a remote cloud server. This is the Cloud-1 project from the 42 network curriculum.
 
 Instead of SSHing into a server and running commands by hand, `site.yml` provisions Docker, ships the project files, and brings up each container — all in one run.
 
